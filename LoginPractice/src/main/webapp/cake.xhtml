@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+
+	<h1>Cake</h1>
+	<h:form  id="frmCake">
+			Description: <h:inputText value="#{cakeController.cake.description}" />
+						
+			Flavor:<h:inputText 
+			value="#{cakeController.cake.flavor}" />
+			
+			<h:commandButton action="#{cakeController.save}" value="Save">
+			<f:ajax execute="frmCake" render="dtnCake"/>
+			</h:commandButton>
+			
+			<h:commandButton  rendered="#{cakeController.editMode}"
+			action="#{cakeController.save}" value="Cancel">
+			<f:ajax render="frmCake"></f:ajax>
+			</h:commandButton>
+			
+		
+			
+			
+			<h:dataTable value="#{cakeController.cake}" var="c" id="dtCake">
+			<h:column><f:facet name="header">Id</f:facet>#{c.id}</h:column>
+			<h:column><f:facet name="header">Description </f:facet>#{c.description}</h:column>
+			<h:column><f:facet name="header">Flavor  </f:facet>#{c.flavor}</h:column>
+			
+		
+		
+			 <h:column>
+				<f:facet name="header">Actions</f:facet>
+				<h:commandButton action="#{cakeController.delete(c)}"
+					value="Delete"
+					onclick="return window.confirm
+				('Are you sure?')">
+					<f:ajax render="frmCake:dtCake" />
+				</h:commandButton>
+				<h:commandButton action="#{cakeController.update(c)}"
+					value="Update">
+
+					<f:ajax render="frmCake" />
+				</h:commandButton>
+
+			</h:column>
+			
+
+		</h:dataTable>
+			
+			
+			
+			
+			
+	</h:form>
+</body>
+</html>
